@@ -18,6 +18,27 @@ function chooseFileAndSetImageSrc(){
     chooseFile(readFileAndSetIMGSrc)
 }
 
+document.addEventListener('paste',e=>{
+	// console.log(e.clipboardData,e.clipboardData.files);
+
+	const clipboardData = e.clipboardData;
+	if(clipboardData.items[0]){
+		let file = clipboardData.items[0].getAsFile();
+
+		if(file && isImageRegex.test(file.type)){
+			return readFileAndSetIMGSrc(file);
+		}
+	}
+
+	if(clipboardData.files.length){
+		for(let i = 0;i<clipboardData.files.length;i++){
+			if(isImageRegex.test(clipboardData.files[i].type)){
+				console.log(clipboardData.files[i])
+				readFileAndSetIMGSrc(clipboardData.files[i]);
+			}
+		}
+	}
+});
 document.addEventListener('dragover',e=>{
 	e.preventDefault();
 });
@@ -132,13 +153,12 @@ const data = {
 	runing:false,
 	current:0,
 	debug:false,
-	config:deepCopy(defaultConfig),
+	config:null,
 	width:400,
 	userNamesText
 };
 
 
-data.config.userNames = userNamesText.trim().split('\n')
 
 
 const app = new Vue({
@@ -146,7 +166,6 @@ const app = new Vue({
 	data,
 	methods:{
 		patina(){
-			console.log(this.$refs.img)
 			patina(this.$refs.img,this.config,app)
 		},
 		_patina(){
@@ -155,7 +174,9 @@ const app = new Vue({
 		},
 		chooseFileAndSetImageSrc,
 		reset(){
-			this.config = deepCopy(defaultConfig)
+			const _config = deepCopy(defaultConfig)
+			_config.userNames = this.userNamesText.trim().split('\n')
+			this.config = _config
 		}
 	},
 	watch:{
@@ -166,14 +187,14 @@ const app = new Vue({
 			}
 		},
 		userNamesText(text){
-			this.config.userNames = text.trim().split('\n')
+			this.config.userNames = this.userNamesText.trim().split('\n')
 		}
 	},
 	computed:{
 		
 	}
 })
-
+app.reset();
 
 const loadScript = (src,el) =>{
 	el = document.createElement('script');
