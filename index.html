@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<title>电子包浆 图片绿化器 - 神奇海螺实验室</title>
+<title>电子包浆 图片绿化工具 - 神奇海螺实验室</title>
 <meta name="discription" content="电子包浆 图片绿化器 - 电子包浆生成器、图片虚拟做旧工具、图片绿化器、包浆生成、赛博做旧 - 神奇海螺实验室">
 <link rel="stylesheet" href="document.css">
 <meta name="viewport" content="width=device-width,user-scalable=0">
 <!-- <link rel="manifest" href="manifest.json" crossorigin="use-credentials"> -->
 <div class="app">
-    <h1>电子包浆 图片绿化器</h1>
+    <h1>电子包浆 图片绿化工具</h1>
     <div class="output-box">
         <img class="source-image" :src="src" ref="img" @load="patina()" :style="`width:${width}px;`">
         <img class="output-image" :src="output" v-if="output" :style="`width:${width}px;`">
     </div>
 
-    <div class="ctrl-box">
+    <div class="ctrl-box" v-if="config">
         <div class="input-box">
             <button @click="chooseFileAndSetImageSrc">选择或粘贴拖拽图片</button>
             <button @click="save">保存图片</button>
@@ -147,7 +147,7 @@
         <div class="copyright">
             全做：<a href="https://weibo.com/reiove" target="_blank">@卜卜口</a>
             <hr>
-            反馈：<a href="https://github.com/itorr/vaporwave" target="_blank">GitHub</a>
+            反馈：<a href="https://github.com/itorr/patina" target="_blank">GitHub</a>
             <hr>
             QQ群 <span>335766065</span>
             <br>
@@ -162,15 +162,15 @@
         <ul>
             <li>
                 梗图生成器 - 所见即所得的梗图生成器、支持电子包浆等功能
-                <small><a href="http://x.magiconch.com/">http://x.magiconch.com/</a></small>
+                <small><a href="http://x.magiconch.com/" target="_blank">http://x.magiconch.com/</a></small>
             </li>
             <li>
                 JPEGreen Simulator
-                <small><a href="https://m13253.github.io/JPEGreen/">https://m13253.github.io/JPEGreen/</a></small>
+                <small><a href="https://m13253.github.io/JPEGreen/" target="_blank">https://m13253.github.io/JPEGreen/</a></small>
             </li>
             <li>
                 Use libjpeg-turbo for YUV->RGB conversion in jpeg encoder
-                <small><a href="https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d">https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d</a></small>
+                <small><a href="https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d" target="_blank">https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d</a></small>
             </li>
         </ul>
     </div>

@@ -167,6 +167,8 @@ const app = new Vue({
 	methods:{
 		patina(){
 			patina(this.$refs.img,this.config,app)
+
+            !window._czc||_czc.push(["_trackEvent", "电子包浆","生成",this.config.round,this.config.quality,"run"]);
 		},
 		_patina(){
 			clearTimeout(this.T)
