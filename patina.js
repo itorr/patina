@@ -207,7 +207,7 @@ const patina = (imageEl, _config, app)=>{
     canvas.height = _height
 
 
-    // width.value = _width
+    app.width = _width
 
 
 	let cutLeft = 0;

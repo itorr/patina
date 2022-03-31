@@ -177,6 +177,12 @@ const app = new Vue({
 			const _config = deepCopy(defaultConfig)
 			_config.userNames = this.userNamesText.trim().split('\n')
 			this.config = _config
+		},
+		save(){
+			const a = document.createElement('a');
+			a.href = this.output;
+			a.download = `[lab.magiconch.com][电子包浆]-${+Date.now()}.jpg`;
+			a.click();
 		}
 	},
 	watch:{
