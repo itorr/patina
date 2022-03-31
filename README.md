@@ -8,6 +8,7 @@
 ## 为什么做
 图片效果化处理摸索中
 
+## GitHub
 [https://github.com/itorr/patina](https://github.com/itorr/patina)
 
 ## 打赏
