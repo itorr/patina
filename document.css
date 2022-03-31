@@ -11,7 +11,7 @@ button,input{
 	font:inherit;
 }
 a{
-	color:#ff32bb;
+	color:#3270ff;
 }
 ::selection{
 	background: #1e67ff;
@@ -22,6 +22,11 @@ a{
 	
 }
 
+h1{
+	margin:0;
+	line-height: 3;
+	padding:0 1em;
+}
 
 h3,h4{
 	margin:0;
@@ -44,10 +49,24 @@ small:after{
 	content: ')';
 }
 
+.input-box{
+	padding:4px 0;
+}
 input[type="range"]{
 	width:400px;
+	max-width:100%;
+	margin:0;
+	display: block;
 }
-
+label{
+	cursor: pointer;
+	
+}
+label input[type="checkbox"]{
+	display: inline-block;
+	vertical-align: middle;
+	margin:0 0 .12em .4em;
+}
 
 .ctrl-box{
 	padding:10px;
@@ -92,13 +111,14 @@ hr{
 
 .tip-box{
 	border-top:1px solid #EEE;
-	margin:40px 0;
-	padding:10px 0 10px;
+	margin:20px 0;
+	padding:20px 20px;
 }
 .tip-box ul{
 	margin:4px 0;
 	padding:0;
 	font-size:12px;
+	list-style-type: none;
 }
 .tip-box ul li{
 	margin:.6em 0;
@@ -153,4 +173,37 @@ hr{
 	.ctrl-box{
 		padding:10px;
 	}
+}
+
+code{
+	background:rgba(0,0,0,.1);
+	display: inline-block;
+	padding:0 4px;
+	margin:0 2px;
+	border-radius:1px;
+}
+
+blockquote{
+	display: inline-block;
+	background:#EEE;
+	color:#333;
+	margin:0;
+	padding:1em;
+}
+blockquote p{
+	margin:0;
+}
+
+
+footer{
+	padding:20px 20px 100px;
+	line-height: 2;
+}
+footer hr{
+	display: inline-block;
+	vertical-align: middle;
+	border:0;
+	height:1em;
+	margin:0 .2em;
+	border-right:1px solid #DDD;
 }

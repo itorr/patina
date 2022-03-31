@@ -14,6 +14,9 @@ const readFileAndSetIMGSrc = file=>{
 	});
 };
 
+function chooseFileAndSetImageSrc(){
+    chooseFile(readFileAndSetIMGSrc)
+}
 
 document.addEventListener('dragover',e=>{
 	e.preventDefault();
@@ -89,6 +92,38 @@ let defaultConfig = {
 	watermarkSize:1,
 };
 
+const userNamesText = `卜卜口
+_蒸_気_機_
+能不能好好说话
+神奇海螺_0000
+magiconch.com
+电脑玩家海螺
+电子包浆
+阿卡梦
+_阿_卡_梦_
+极限天空
+_极_限_天_空_
+任意门穿梭了时光
+干啥都成功的球球
+黄前久美子
+Uahh_
+夹去阳间
+大吉山放送部
+绫波
+_绫_波_丽_
+_明_日_香_
+_久_美_子_
+高坂丽奈
+Lilin_0000
+Seele_0000
+EVANGELION
+樱岛麻衣
+_樱岛麻衣
+电脑玩家0000
+fps爱好者
+千反田爱瑠`;
+
+
 
 const data = {
 	src:'totoro-avatar.jpg',
@@ -98,8 +133,12 @@ const data = {
 	current:0,
 	debug:false,
 	config:deepCopy(defaultConfig),
-	width:400
+	width:400,
+	userNamesText
 };
+
+
+data.config.userNames = userNamesText.trim().split('\n')
 
 
 const app = new Vue({
@@ -113,6 +152,10 @@ const app = new Vue({
 		_patina(){
 			clearTimeout(this.T)
 			this.T = setTimeout(this.patina,100)
+		},
+		chooseFileAndSetImageSrc,
+		reset(){
+			this.config = deepCopy(defaultConfig)
 		}
 	},
 	watch:{
@@ -121,7 +164,13 @@ const app = new Vue({
 			handler(){
 				this._patina()
 			}
+		},
+		userNamesText(text){
+			this.config.userNames = text.trim().split('\n')
 		}
+	},
+	computed:{
+		
 	}
 })
 

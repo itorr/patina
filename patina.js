@@ -137,37 +137,10 @@ const convoluteNames = Object.keys(Convolutes);
 
 
 
-const userNames = [
-    '卜卜口',
-    '_蒸_気_機_',
-    '能不能好好说话',
-    '神奇海螺',
-    'magiconch.com',
-    '电脑玩家海螺',
-    '电子包浆',
-    '阿卡梦',
-    '极限天空',
-    '任意门穿梭了时光',
-    '干啥都成功的球球',
-    '中二halo君',
-    '黄前9妹子',
-    'Uahh',
-    '夹去阳间',
-    '大吉山放送部',
-    '绫波',
-    '明日香',
-    '久美子',
-    '丽奈',
-    'lilin',
-    'Seele',
-    'EVANGELION',
-    '樱岛麻衣',
-    '电脑玩家',
-    'fps爱好者',
-    '千反田'
-];
-const randName = _=>{
-    return userNames[randRange2(0,userNames.length-1)]// + (randRange(0,9999)||'') + '          -_+~!^&、.。”“"\'|'[randRange(0,24)].trim()
+
+const randName = userNames=>{
+	let k = '-_+~!^&、.。”“"\'|'[randRange(0,14)];
+    return userNames[randRange2(0,userNames.length-1)].replace(/\d\d\d\d/,_=>randRange(0,9999)).replace(/_/g,_=>k)
 }
 
 
@@ -225,7 +198,7 @@ const patina = (imageEl, _config, app)=>{
     }
 
     
-    console.log(naturalWidth,naturalHeight,_width,_height)
+    // console.log(naturalWidth,naturalHeight,_width,_height)
 
     _width  = _width  / 100 * _config.zoom
     _height = _height / 100 * _config.zoom
@@ -343,7 +316,7 @@ const patina = (imageEl, _config, app)=>{
         ctx.textAlign = watermarkPlan.align;
         ctx.textBaseline='bottom';
 
-        ctx.fillText('@'+randName(),watermarkPlan.left,watermarkPlan.top);
+        ctx.fillText('@'+randName(_config.userNames),watermarkPlan.left,watermarkPlan.top);
     }
     if(_config.watermark){
         watermark();
@@ -401,12 +374,10 @@ const patina = (imageEl, _config, app)=>{
 				pixelData[i+2],
 			);
 
-			// UV 漂移
-			// yuv = UVshifting(yuv,config);
 
-			pixelData[i                 ] = yuv[0];
-			pixelData[i+1 ] = yuv[1];
-			pixelData[i+2 ] = yuv[2];
+			pixelData[ i   ] = yuv[0];
+			pixelData[ i+1 ] = yuv[1];
+			pixelData[ i+2 ] = yuv[2];
 
 		}
 
@@ -423,20 +394,22 @@ const patina = (imageEl, _config, app)=>{
                 //噪声在亮部不那么明显
             }
         }
+
+		//对比度
         if(_config.contrast !== 1){
             for (let i = 0; i < pixelData.length; i +=4) {
                 pixelData[i] = ( pixelData[i] - 128 ) * _config.contrast + 128;
-                //噪声在亮部不那么明显
-            }
-        }
-        if(_config.light !== 0){
-            for (let i = 0; i < pixelData.length; i +=4) {
-                pixelData[i] =  pixelData[i] + _config.light * 128;
-                //噪声在亮部不那么明显
             }
         }
 
-        
+		//亮度
+        if(_config.light !== 0){
+            for (let i = 0; i < pixelData.length; i +=4) {
+                pixelData[i] =  pixelData[i] + _config.light * 128;
+            }
+        }
+
+        //卷积
 		if(_config.convoluteName){
 			pixel = convolute(
 				pixel,
@@ -447,7 +420,7 @@ const patina = (imageEl, _config, app)=>{
 
         for(let i = 0;i < pixelData.length;i += 4){
 
-
+			//绿化
             if(_config.g){
                 let gAdd = _config.g * 4;
                 pixelData[ i   ] -= gAdd * _config.gy;
@@ -521,7 +494,7 @@ const patina = (imageEl, _config, app)=>{
         const _imgEl = new Image()
 
         _imgEl.onload= _=>{
-            console.log(i)//,randRange)
+            // console.log(i)//,randRange)
 
             let randi = 2;
             let randPix = randRange(-randi,randi);
@@ -570,7 +543,7 @@ const patina = (imageEl, _config, app)=>{
     const _imgEl = new Image()
     
     _imgEl.onload= _=>{
-        console.log(/原本执行那一次质量调整/,i)
+        // console.log(/原本执行那一次质量调整/,i)
 
         ctx.drawImage(
             _imgEl,
