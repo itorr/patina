@@ -158,11 +158,18 @@ let popCtx = popCanvas.getContext('2d')
 
 let lastConfigString = null;
 const patina = (imageEl, _config, app)=>{
+
+    const naturalWidth = imageEl.naturalWidth
+    const naturalHeight = imageEl.naturalHeight
+
+
 	const configString = [
 		JSON.stringify(_config),
 		imageEl.src,
+		naturalWidth,
 	].join('-');
 
+	if(!naturalWidth)return;
 	if(lastConfigString === configString) return;
 
 	lastConfigString = configString;
@@ -174,8 +181,6 @@ const patina = (imageEl, _config, app)=>{
         randRange = _=> 0
     }
 
-    const naturalWidth = imageEl.naturalWidth
-    const naturalHeight = imageEl.naturalHeight
 
     let _width = naturalWidth;
     let _height = naturalHeight;
