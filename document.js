@@ -111,6 +111,7 @@ let defaultConfig = {
 	rand:true, //随机
 	watermark: true,
 	watermarkSize:1,
+	watermarkPlan:2
 };
 
 const userNamesText = `卜卜口

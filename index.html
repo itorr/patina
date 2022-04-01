@@ -130,8 +130,23 @@
                 <input type="range" min=1 max=125 step="1" v-model.number="config.darkNoise"> {{config.darkNoise}}
             </div>
             <div class="input-box">
-                <h4>watermarkSize</h4>
+                <h4>水印尺寸</h4>
                 <input type="range" min=.5 max=1.5 step="0.1" v-model.number="config.watermarkSize"> *{{config.watermarkSize}}
+            </div>
+            <div class="input-box">
+                <h4>水印位置</h4>
+                <label>
+                    <input type="radio" v-model="config.watermarkPlan" :value="2">
+                    右下中
+                </label>
+                <label>
+                    <input type="radio" v-model="config.watermarkPlan" :value="1">
+                    右下
+                </label>
+                <label>
+                    <input type="radio" v-model="config.watermarkPlan" :value="0">
+                    右
+                </label>
             </div>
             <div class="input-box">
                 <h4>水印用户名们<small>换行分割，光标移出生效；<code>0000</code>替代随机数字、<code>_</code>半角下划线替代<code>-_+~!^&、.。”“"'|</code>随机字符</small></h4>
