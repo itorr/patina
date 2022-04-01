@@ -172,6 +172,8 @@ const patina = (imageEl, _config, app)=>{
 	if(!naturalWidth)return;
 	if(lastConfigString === configString) return;
 
+	app.runing = true;
+
 	lastConfigString = configString;
 
 
