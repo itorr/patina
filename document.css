@@ -21,17 +21,25 @@ a{
 .patina-box{
 	
 }
-
+header{
+	padding:20px;
+	line-height: 1.5;
+}
 h1{
 	margin:0;
-	line-height: 3;
-	padding:0 1em;
 	font-family:'苹方';
 	/* font-weight:1200; */
 	/* color:#FFF; */
     text-shadow: 1px 1px 0 #ff658c, -1px -1px 0 #77cdc7;
 }
+header p{
+	margin:0;
+	font-size:16px;
+	opacity: .5;
+	text-indent:.5em;
+}
 
+h2,
 h3,h4{
 	margin:0;
 }

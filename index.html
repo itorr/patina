@@ -6,7 +6,10 @@
 <meta name="viewport" content="width=device-width,user-scalable=0">
 <!-- <link rel="manifest" href="manifest.json" crossorigin="use-credentials"> -->
 <div class="app">
-    <h1>电子包浆 图片做旧工具 赛博包浆虚拟器</h1>
+    <header>
+        <h1>电子包浆 图片赛博做旧</h1>
+        <p>给表情赋予年份</p>
+    </header>
     <div class="output-box">
         <img class="source-image" :src="src" ref="img" @load="patina()" :style="`width:${width}px;`">
         <img class="output-image" :src="output" v-if="output" :style="`width:${width}px;`">
@@ -141,7 +144,19 @@
 
     </div>
     <blockquote>
-        <p>给表情赋予时间沉淀</p>
+        <h2>「电子包浆」 图片做旧工具，赛博包浆虚拟器🤢</h2>
+        <p>&nbsp;</p>
+        <p>支持 <b>图片绿化</b>、<b>虚拟水印</b>、<b>虚拟传播年份</b>、<b>高效率模糊</b>、<b>浮雕锐化</b>、<b>噪点颗粒</b>、<b>像素不对齐</b>、<b>作假多次包浆绿化</b> 和 基础 <b>对比度</b>、<b>亮度</b>调整 以及 <b>波普重复</b>功能😈</p>
+        <p>&nbsp;</p>
+        <p>水印用户名可自定义</p>
+        <p>
+            可选择原尺寸输出图片
+            <label v-if="config">
+                <input type="checkbox" v-model="config.preview">
+                缩略图
+                <small>关闭即输出原图</small>
+            </label>
+        </p>
     </blockquote>
     <footer>
         <div class="copyright">
