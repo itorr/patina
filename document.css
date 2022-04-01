@@ -40,7 +40,7 @@ header p{
 }
 
 h2,
-h3,h4{
+h3,h4,h5,h6{
 	margin:0;
 }
 
@@ -123,7 +123,7 @@ hr{
 
 .tip-box{
 	border-top:1px solid #EEE;
-	margin:20px 0;
+	/* margin:20px 0; */
 	padding:20px 20px;
 }
 .tip-box ul{
@@ -135,20 +135,17 @@ hr{
 .tip-box ul li{
 	margin:.6em 0;
 	padding:0;
-	line-height:1.2;
+	line-height:1.4;
 }
-.tip-box small{
+.tip-box h6{
+	font-weight:normal;
+}
+.tip-box a{
 	display: block;
 	font-size:.8em;
 	overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
-	opacity: .5;
-	
-}
-.tip-box small:before,
-.tip-box small:after{
-	display:none;
 }
 
 
