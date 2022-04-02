@@ -18,7 +18,7 @@ a{
 	color: #FFF;
 }
 
-.patina-box{
+.app{
 	
 }
 header{
@@ -107,10 +107,10 @@ pre{
 	padding:6px;
 	margin:0;
 }
-.patina-box[data-runing="true"]{
+.app[data-runing="true"]{
 	cursor: wait;
 }
-.patina-box[data-runing="true"] .ctrl-box{
+.app[data-runing="true"] .ctrl-box{
 	pointer-events: none;
 }
 
