@@ -244,6 +244,14 @@ const loadScript = (src,el) =>{
 	document.body.appendChild(el);
 };
 
+window._hmt = [];
+window.dataLayer = [
+    ['js', new Date()],
+    ['config', 'G-13BQC1VDD8']
+];
+window.gtag = function(){dataLayer.push(arguments)};
 setTimeout(_=>{
-	loadScript('//s4.cnzz.com/z_stat.php?id=1278706389&web_id=1278706389');
+	// loadScript('//s4.cnzz.com/z_stat.php?id=1278706389&web_id=1278706389');
+	loadScript('//hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
+	loadScript('//www.googletagmanager.com/gtag/js?id=G-13BQC1VDD8');
 },400);

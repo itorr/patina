@@ -308,7 +308,7 @@ const patina = (imageEl, _config, app)=>{
 
         fontSize = fontSize * _config.watermarkSize
 
-        ctx.shadowColor = 'rgba(0, 0, 0, 1)';
+        ctx.shadowColor = 'rgba(0, 0, 0, .8)';
         ctx.shadowOffsetX = 0;
         ctx.shadowOffsetY = 1;
         ctx.shadowBlur = 4;
