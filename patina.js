@@ -317,7 +317,7 @@ const patina = (imageEl, _config, app)=>{
 
 
         const shift = fontSize/2;
-        const watermarkPlan = getWatermarkPlan(shift,randRange(0,_config.watermarkPlan));
+        const watermarkPlan = getWatermarkPlan(shift,randRange2(0,_config.watermarkPlan));
 
 
 
