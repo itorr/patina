@@ -64,6 +64,7 @@ const chooseFile = callback=>{
 chooseFile.form = document.createElement('form');
 chooseFile.input = document.createElement('input');
 chooseFile.input.type = 'file';
+chooseFile.input.accept = 'image/*';
 chooseFile.form.appendChild(chooseFile.input);
 
 const request = (method,uri,data,callback)=>{
@@ -84,7 +85,7 @@ const request = (method,uri,data,callback)=>{
 
 
 
-const isImageRegex = /^image\/(jpeg|gif|png|bmp|webp)$/;
+const isImageRegex = /^image\/(.+)$/;
 
 const deepCopy = o=>JSON.parse(JSON.stringify(o));
 
@@ -112,7 +113,8 @@ let defaultConfig = {
 	watermark: true,
 	watermarkSize:1,
 	watermarkPlan:2,
-	watermarkShadowAlpha:.6
+	watermarkShadowAlpha:.6,
+
 };
 
 const userNamesText = `卜卜口
@@ -190,7 +192,8 @@ const data = {
 	debug:false,
 	config:null,
 	width:400,
-	userNamesText
+	userNamesText,
+	multiply:1
 };
 
 

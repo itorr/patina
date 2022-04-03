@@ -74,7 +74,8 @@ label{
 	cursor: pointer;
 	
 }
-label input[type="checkbox"]{
+label input[type="checkbox"],
+label input[type="radio"]{
 	display: inline-block;
 	vertical-align: middle;
 	margin:0 0 .12em .4em;
@@ -84,6 +85,9 @@ label input[type="checkbox"]{
 	padding:10px;
 }
 
+[v-cloak]{
+	display: none;
+}
 .debug-box{
 	background:#EEE;
 	font-size:12px;
@@ -150,7 +154,6 @@ hr{
 
 
 
-
 @media(max-width:1200px){
 	.output-box{
 		cursor: pointer;
@@ -203,9 +206,22 @@ blockquote p{
 	margin:0;
 }
 
+.post-box{
+	padding:20px;
+}
+
+.dialog-box{
+	display: inline-block;
+	margin:0;
+	padding:12px 14px;
+	background:#ffe89b;
+	border:1px solid #ffd350;
+	border-radius:3px;
+	color:#8b4d00;
+}
 
 footer{
-	padding:20px 20px 100px;
+	padding:20px 20px 60px;
 	line-height: 2;
 }
 footer hr{
