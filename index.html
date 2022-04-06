@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <title>电子包浆 图片做旧工具 赛博包浆虚拟器 - 神奇海螺实验室</title>
 <meta name="discription" content="电子包浆 图片绿化器 - 电子包浆生成器、图片虚拟做旧工具、图片绿化器、包浆生成、赛博做旧 - 神奇海螺实验室">
-<link rel="stylesheet" href="document.css">
+<link rel="stylesheet" href="document.css?r=220410">
 <meta name="viewport" content="width=device-width,user-scalable=0">
 <!-- <link rel="manifest" href="manifest.json" crossorigin="use-credentials"> -->
 <div class="app" :data-runing="runing">
@@ -114,10 +114,14 @@
 
             <div class="input-box">
                 <h4>卷积 <small>convolute</small></h4>
-                <select v-model="config.convoluteName">
-                    <option :value="null">不进行线条处理</option>
-                    <option :value="convoluteName" v-for="convoluteName in convoluteNames" :key="convoluteName">{{convoluteName}}</option>
-                </select>
+                <label>
+                    <input type="radio" v-model="config.convoluteName" :value="null">
+                    无
+                </label>
+                <label v-for="convoluteName in convoluteNames" :key="convoluteName">
+                    <input type="radio" v-model="config.convoluteName" :value="convoluteName">
+                    {{convoluteName}}
+                </label>
             </div>
             <div class="input-box">
                 <h4>偏移</h4>
@@ -169,8 +173,7 @@
                 <textarea v-model.lazy="userNamesText" cols="30" rows="10"></textarea>
 
             </div>
-            <pre>{{JSON.stringify(config,0,4)}}</pre>
-            
+            <!-- <pre>{{JSON.stringify(config,0,4)}}</pre> -->
         </div>
 
     </div>
@@ -190,7 +193,9 @@
         </p>
     </blockquote>
     <div class="post-box">
-        <p>👻 无法正常选择图片请尝试使用自带浏览器！</p>
+        <p>此页面选择的图像<b>不会上传到服务器</b>，请安心利用</p>
+        <p>无法正常选择图片请尝试使用自带浏览器！</p>
+        <p>年份不够用的情况可以页面内拖拽输出图像再次包浆</p>
     </div>
     <footer>
         <div class="copyright">
@@ -210,27 +215,36 @@
     </footer>
 
     <div class="tip-box">
-        <h4>相关项目</h4>
+        <h3>相关项目</h3>
         <ul>
             <li>
-                <h6>「 蒸 気 機 」虚拟信号蒸汽波风格化影像后期工具</h6>
+                <h4>「 蒸 気 機 」虚拟信号蒸汽波风格化影像后期工具</h4>
                 <a href="https://lab.magiconch.com/vaporwave/?from=patina" target="_blank">lab.magiconch.com/vaporwave</a>
             </li>
         </ul>
     </div>
     <div class="tip-box">
-        <h4>参考</h4>
+        <h3>利用</h3>
         <ul>
             <li>
-                <h6>梗图生成器 - 所见即所得的梗图生成器、支持电子包浆等功能</h6>
+                <h4>最像素 Zpix - 一个支持中日英文的像素字体</h4>
+                <a href="https://github.com/SolidZORO/zpix-pixel-font" target="_blank">github.com/SolidZORO/zpix-pixel-font</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tip-box">
+        <h3>参考</h3>
+        <ul>
+            <li>
+                <h4>梗图生成器 - 所见即所得的梗图生成器、支持电子包浆等功能</h4>
                 <a href="http://x.magiconch.com/" target="_blank">x.magiconch.com</a>
             </li>
             <li>
-                <h6>JPEGreen Simulator</h6>
+                <h4>JPEGreen Simulator</h4>
                 <a href="https://m13253.github.io/JPEGreen/" target="_blank">m13253.github.io/JPEGreen</a>
             </li>
             <li>
-                <h6>Use libjpeg-turbo for YUV->RGB conversion in jpeg encoder</h6>
+                <h4>Use libjpeg-turbo for YUV->RGB conversion in jpeg encoder</h4>
                 <a href="https://github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d" target="_blank">github.com/google/skia/commit/c7d01d3e1d3621907c27b283fb7f8b6e177c629d</a>
             </li>
         </ul>
@@ -238,5 +252,5 @@
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
-<script src="patina.js"></script>
-<script src="document.js"></script>
+<script src="patina.js?r=220408"></script>
+<script src="document.js?r=220408"></script>

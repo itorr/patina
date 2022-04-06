@@ -182,6 +182,8 @@ _鹤_屋_
 冈崎汐0000`;
 
 
+let config = deepCopy(defaultConfig);
+config.userNames = userNamesText.trim().split('\n')
 
 const data = {
 	src:'totoro-avatar.jpg',
@@ -190,7 +192,7 @@ const data = {
 	runing:false,
 	current:0,
 	debug:false,
-	config:null,
+	config,
 	width:400,
 	userNamesText,
 	multiply:1
@@ -238,7 +240,6 @@ const app = new Vue({
 		
 	}
 })
-app.reset();
 
 const loadScript = (src,el) =>{
 	el = document.createElement('script');
