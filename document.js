@@ -210,7 +210,7 @@ const app = new Vue({
 		},
 		_patina(){
 			clearTimeout(this.T)
-			this.T = setTimeout(this.patina,100)
+			this.T = setTimeout(this.patina,300)
 		},
 		chooseFileAndSetImageSrc,
 		reset(){

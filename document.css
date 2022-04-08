@@ -204,14 +204,14 @@ blockquote{
 	background:#215200;
 	color:var(--background-color);
 	margin:0;
-	padding:1em;
+	padding:15px;
 }
 blockquote p{
 	margin:0;
 }
 
 .post-box{
-	padding:20px;
+	padding:15px;
 }
 
 .dialog-box{
