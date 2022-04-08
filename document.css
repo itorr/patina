@@ -12,11 +12,12 @@ html{
 	-moz-osx-font-smoothing: none;
 	font-feature-settings: 'tnum';
 	background-color: #eefee4;
-	background-image: linear-gradient(45deg, #deffed 0%, #fafedd 100%);
+	background-image: linear-gradient(45deg, #e0ffde 0%, #fafedd 100%);
 	color:#215200;
 }
 body{
 	margin:0;
+	padding-bottom:50px;
 }
 button,input{
 	font:inherit;
@@ -93,7 +94,7 @@ small:after{
 
 
 .ctrl-box{
-	padding:10px;
+	padding:10px 15px;
 }
 
 [v-cloak]{
@@ -101,8 +102,8 @@ small:after{
 }
 .debug-box{
 	background:#bad7ac;
-	padding:10px;
-	margin:0 -10px;
+	padding:10px 15px;
+	margin:0 -15px;
 }
 
 
@@ -137,7 +138,7 @@ hr{
 .tip-box{
 	border-top:2px solid rgba(0,0,0,.05);
 	/* margin:20px 0; */
-	padding:20px 20px;
+	padding:15px;
 }
 .tip-box ul{
 	margin:4px 0;
@@ -188,9 +189,6 @@ hr{
 	.output-box:active.output-image{
 		opacity: 0;
 	}
-	.ctrl-box{
-		padding:10px;
-	}
 }
 
 code{
@@ -227,7 +225,7 @@ blockquote p{
 }
 
 footer{
-	padding:20px 20px 60px;
+	padding:15px 15px 60px;
 	line-height: 2;
 }
 footer hr{
@@ -263,24 +261,27 @@ button{
 /* 20220407 itorr ui */
 input[type="range"]{
 	width:400px;
-	height:2px;
+	height:20px;
 	-webkit-appearance: none;
 	appearance: none;
 	max-width:100%;
-	margin:6px 0;
+	margin:0;
 	display: block;
 	color:inherit;
-	background:currentColor;
+	background:none;
+	
 }
 input[type="range"]::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	appearance: none;
 	cursor: pointer;
+	background:currentColor;
+	height:2px;
 }
 input[type="range"]::-webkit-slider-thumb{
 	height:18px;
 	width:10px;
-	margin:-9px 0;
+	margin:-8px 0;
 	background:currentColor;
 	border:2px solid var(--background-color);
 	-webkit-appearance:none;
@@ -306,7 +307,7 @@ label input[type="checkbox"],
 label input[type="radio"]{
 	display: inline-block;
 	vertical-align: middle;
-	margin:0 .3em .12em .2em;
+	margin:.15em .1em .15em 0;
 	width:14px;
 	height:14px;
 	color:currentColor;
@@ -314,6 +315,7 @@ label input[type="radio"]{
 	-webkit-appearance:none;
 	appearance: none;
 	position: relative;
+	z-index:0;
 }
 label input[type="checkbox"]{
 	border-radius:0;

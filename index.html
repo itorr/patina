@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <title>电子包浆 图片做旧工具 赛博包浆虚拟器 - 神奇海螺实验室</title>
 <meta name="discription" content="电子包浆 图片绿化器 - 电子包浆生成器、图片虚拟做旧工具、图片绿化器、包浆生成、赛博做旧 - 神奇海螺实验室">
-<link rel="stylesheet" href="document.css?r=220410">
+<link rel="stylesheet" href="document.css?r=220408-1">
 <meta name="viewport" content="width=device-width,user-scalable=0">
 <!-- <link rel="manifest" href="manifest.json" crossorigin="use-credentials"> -->
 <div class="app" :data-runing="runing">
@@ -33,18 +33,18 @@
                 <input type="checkbox" v-model="config.isPop">
                 波普
             </label>
-            <span v-if="current">{{current}}</span>
+            <span v-if="current">{{current}}/{{config.isPop?config.pop*config.pop:config.round}}</span>
             <!-- <input type="range" min=1 max=100 step="1" v-model.number="config.green"> {{config.green}} -->
         </div>
 
         <div class="input-box" v-if="config.isPop">
             <h4>波普</h4>
-            <input type="range" min=1 :max="12*multiply" step="1" v-model.number="config.pop"> {{config.pop}}*{{config.pop}}
+            <input type="range" min=1 :max="superMode?50:12" step="1" v-model.number="config.pop"> {{config.pop}}*{{config.pop}}
         </div>
         
         <div class="input-box" v-else>
             <h4>做旧年份</h4>
-            <input type="range" min=1 :max="100*multiply" step="1" v-model.number="config.round"> {{config.round}}
+            <input type="range" min=1 :max="superMode?1000:100" step="1" v-model.number="config.round"> {{config.round}}
         </div>
 
         <div class="input-box">
@@ -60,9 +60,11 @@
             </label>
         </div>
         <div class="debug-box" v-if="debug">
-            <!-- <button @click="patina()" :disabled="runing">更新</button> -->
-            <button @click="reset">恢复默认选项</button>
-            <!-- <button @click="createCanvas()">createCanvas</button> -->
+            <div class="input-box" style="padding:5px 0;">
+                <!-- <button @click="patina()" :disabled="runing">更新</button> -->
+                <button @click="reset">恢复默认选项</button>
+                <!-- <button @click="createCanvas()">createCanvas</button> -->
+            </div>
 
             <div class="input-box" style="padding:5px 0;">
                 <label>
@@ -79,19 +81,13 @@
                     <small>对性能影响极大，谨慎使用</small>
                 </label>
             </div>
-
             <div class="input-box" style="padding:5px 0;">
                 <label>
-                    <input type="radio" v-model="multiply" :value="1">
-                    普通
-                </label>
-                <label>
-                    <input type="radio" v-model="multiply" :value="10">
+                    <input type="checkbox" v-model="superMode">
                     超强模式
-                    <small>部分最大选项乘十，极度影响渲染时间</small>
+                    <small>部分选项最大值乘十，极度影响渲染时间</small>
                 </label>
             </div>
-
             <div class="input-box">
                 <h4>模糊 <small>高效率</small></h4>
                 <input type="range" min=1 max=20 step="0.1" v-model.number="config.mix"> {{config.mix}}
@@ -193,7 +189,7 @@
         </p>
     </blockquote>
     <div class="post-box">
-        <p>此页面选择的图像<b>不会上传到服务器</b>，请安心利用</p>
+        <p>图片<b>不会上传到服务器</b>，请安心利用~</p>
         <p>无法正常选择图片请尝试使用自带浏览器！</p>
         <p>年份不够用的情况可以页面内拖拽输出图像再次包浆</p>
     </div>
@@ -252,5 +248,5 @@
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
-<script src="patina.js?r=220408"></script>
-<script src="document.js?r=220408"></script>
+<script src="patina.js?r=220408-1"></script>
+<script src="document.js?r=220408-1"></script>

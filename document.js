@@ -195,7 +195,7 @@ const data = {
 	config,
 	width:400,
 	userNamesText,
-	multiply:1
+	superMode:false
 };
 
 
