@@ -269,12 +269,13 @@ input[type="range"]{
 	display: block;
 	color:inherit;
 	background:none;
+
+	cursor: pointer;
 	
 }
 input[type="range"]::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	appearance: none;
-	cursor: pointer;
 	background:currentColor;
 	height:2px;
 }
@@ -286,7 +287,6 @@ input[type="range"]::-webkit-slider-thumb{
 	border:2px solid var(--background-color);
 	-webkit-appearance:none;
 	appearance: none;
-	cursor: pointer;
 	border-radius:0;
 	box-shadow:none;
 }
@@ -301,7 +301,6 @@ input[type="range"]:disabled::-webkit-slider-thumb{
 
 label{
 	cursor: pointer;
-	
 }
 label input[type="checkbox"],
 label input[type="radio"]{
@@ -315,7 +314,8 @@ label input[type="radio"]{
 	-webkit-appearance:none;
 	appearance: none;
 	position: relative;
-	z-index:0;
+	z-index: 0;
+	cursor: pointer;
 }
 label input[type="checkbox"]{
 	border-radius:0;
