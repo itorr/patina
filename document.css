@@ -306,7 +306,7 @@ label input[type="checkbox"],
 label input[type="radio"]{
 	display: inline-block;
 	vertical-align: middle;
-	margin:.15em .1em .15em 0;
+	margin:.15em .05em .15em 0;
 	width:14px;
 	height:14px;
 	color:currentColor;
