@@ -92,34 +92,17 @@
                 <h4>模糊 <small>高效率</small></h4>
                 <input type="range" min=1 max=20 step="0.1" v-model.number="config.mix"> {{config.mix}}
             </div>
-            <div class="input-box">
+            <!-- <div class="input-box">
                 <h4>略缩图最大长边</h4>
                 <input type="range" min=200 max=1200 step="100" v-model.number="config.maxWidth"> {{config.maxWidth}}px
-            </div>
+            </div> -->
             <div class="input-box">
-                <h4>相对原图尺寸缩放</h4>
-                <input type="range" min=1 max=100 step="0" v-model.number="config.zoom"> {{config.zoom}}%
+                <h4>噪点</h4>
+                <input type="range" min=1 max=125 step="1" v-model.number="config.lightNoise"> {{config.lightNoise}}
             </div>
             <hr>
-            <div class="input-box">
-                <h4>yuv造假绿化 <small>和真实多次效果有差距</small></h4>
-                <input type="range" min=-20 max=20 step="1" v-model.number="config.g"> {{config.g}}
-                <br>
-                <input type="range" min=-2 max=2 step=".1" v-model.number="config.gy"> y*={{config.gy}}
-            </div>
 
-            <div class="input-box">
-                <h4>卷积 <small>convolute</small></h4>
-                <label>
-                    <input type="radio" v-model="config.convoluteName" :value="null">
-                    无
-                </label>
-                <label v-for="convoluteName in convoluteNames" :key="convoluteName">
-                    <input type="radio" v-model="config.convoluteName" :value="convoluteName">
-                    {{convoluteName}}
-                </label>
-            </div>
-            <div class="input-box">
+            <!-- <div class="input-box">
                 <h4>偏移</h4>
                 <input type="range" min=-20 max=20 step="1" v-model.number="config.shiftx"> {{config.shiftx}}px
                 <br>
@@ -128,19 +111,7 @@
             <div class="input-box">
                 <h4>对比度</h4>
                 <input type="range" min=0 max=2 step="0.1" v-model.number="config.contrast"> {{config.contrast}}
-            </div>
-            <div class="input-box">
-                <h4>亮度</h4>
-                <input type="range" min=-1 max=1 step="0.1" v-model.number="config.light"> {{config.light}}
-            </div>
-            <div class="input-box">
-                <h4>噪点</h4>
-                <input type="range" min=1 max=125 step="1" v-model.number="config.lightNoise"> {{config.lightNoise}}
-            </div>
-            <div class="input-box">
-                <h4>颗粒</h4>
-                <input type="range" min=1 max=125 step="1" v-model.number="config.darkNoise"> {{config.darkNoise}}
-            </div>
+            </div> -->
             <div class="input-box">
                 <h4>水印尺寸</h4>
                 <input type="range" min=.5 max=1.5 step="0.1" v-model.number="config.watermarkSize"> *{{config.watermarkSize}}
@@ -167,7 +138,36 @@
             <div class="input-box">
                 <h4>水印用户名们<small>换行分割，光标移出生效；<code>0000</code>替代随机数字、<code>_</code>半角下划线替代<code>-_+~!^&、.。”“"'|</code>随机字符</small></h4>
                 <textarea v-model.lazy="userNamesText" cols="30" rows="10"></textarea>
-
+            </div>
+            <hr>
+            <div class="input-box">
+                <h4>相对原图尺寸缩放</h4>
+                <input type="range" min=1 max=100 step="0" v-model.number="config.zoom"> {{config.zoom}}%
+            </div>
+            <div class="input-box">
+                <h4>亮度</h4>
+                <input type="range" min=-1 max=1 step="0.1" v-model.number="config.light"> {{config.light}}
+            </div>
+            <div class="input-box">
+                <h4>yuv造假绿化 <small>和真实多次效果有差距</small></h4>
+                <input type="range" min=-20 max=20 step="1" v-model.number="config.g"> {{config.g}}
+                <br>
+                <input type="range" min=-2 max=2 step=".1" v-model.number="config.gy"> y*={{config.gy}}
+            </div>
+            <div class="input-box">
+                <h4>颗粒</h4>
+                <input type="range" min=1 max=125 step="1" v-model.number="config.darkNoise"> {{config.darkNoise}}
+            </div>
+            <div class="input-box">
+                <h4>卷积 <small>convolute</small></h4>
+                <label>
+                    <input type="radio" v-model="config.convoluteName" :value="null">
+                    无
+                </label>
+                <label v-for="convoluteName in convoluteNames" :key="convoluteName">
+                    <input type="radio" v-model="config.convoluteName" :value="convoluteName">
+                    {{convoluteName}}
+                </label>
             </div>
             <!-- <pre>{{JSON.stringify(config,0,4)}}</pre> -->
         </div>
