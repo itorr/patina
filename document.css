@@ -39,7 +39,7 @@ header{
 }
 h1{
 	margin:0;
-    text-shadow: 1px 1px 0 #ff658c, -1px -1px 0 #77cdc7;
+    text-shadow: 2px 2px 0 #ff658c, -2px -2px 0 #77cdc7;
 }
 header p{
 	margin:0;
@@ -51,11 +51,6 @@ header p{
 @media(min-width:600px){
 	header{
 		font-size:1.5em;
-	}
-}
-@media(min-width:800px){
-	header{
-		font-size:2em;
 	}
 }
 h2,
