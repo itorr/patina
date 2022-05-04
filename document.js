@@ -33,7 +33,7 @@ document.addEventListener('paste',e=>{
 	if(clipboardData.files.length){
 		for(let i = 0;i<clipboardData.files.length;i++){
 			if(isImageRegex.test(clipboardData.files[i].type)){
-				console.log(clipboardData.files[i])
+				// console.log(clipboardData.files[i])
 				readFileAndSetIMGSrc(clipboardData.files[i]);
 			}
 		}
@@ -93,7 +93,7 @@ let defaultConfig = {
 	isPop:false,
 	preview:true,
 	pop:4, //波普
-	maxWidth:500,
+	maxWidth:600,
 	zoom: 100,
 	mix:1, //像素合并
 	level: 4, //颜色断层
@@ -186,9 +186,12 @@ let config = deepCopy(defaultConfig);
 config.userNames = userNamesText.trim().split('\n')
 
 const data = {
-	src:'totoro-avatar.jpg',
+	// src:'totoro-avatar.jpg',
+	src:'hibike-capture.png',
+	src:'IMG_7076.JPG',
 	output:null,
 	img:null,
+	direction:'vertical',
 	runing:false,
 	current:0,
 	debug:false,
@@ -209,8 +212,21 @@ const app = new Vue({
 			patina(this.$refs.img,this.config,app)
 		},
 		_patina(){
+
 			clearTimeout(this.T)
 			this.T = setTimeout(this.patina,300)
+		},
+		load(){
+			const imageEl = this.$refs.img;
+			let _width  = imageEl.naturalWidth;
+			let _height = imageEl.naturalHeight;
+
+		
+			let scale = _width / _height;
+			let direction = scale > 1.4 ? 'horizontal' : 'vertical';
+
+			app.direction = direction;
+			app.patina();
 		},
 		chooseFileAndSetImageSrc,
 		reset(){
@@ -228,12 +244,18 @@ const app = new Vue({
 	watch:{
 		config:{
 			deep:true,
-			handler(){
-				this._patina()
+			handler(config){
+				console.log(config)
+				const maxWidth = config.maxWidth;
+				document.documentElement.style.setProperty('--max-width', `${maxWidth}px`);
+				this._patina();
 			}
 		},
 		userNamesText(text){
 			this.config.userNames = this.userNamesText.trim().split('\n')
+		},
+		maxWidth(maxWidth){
+			
 		}
 	},
 	computed:{

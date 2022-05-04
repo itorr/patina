@@ -2,6 +2,9 @@
 	font-family: ZpixReviewLocal;
 	src: url(zpix.woff2);
 }
+:root{
+    --max-width: 600px;
+}
 html{
 	font:400 12px/1.4 ZpixReviewLocal,sans-serif;
 	text-rendering:optimizeLegibility;
@@ -102,14 +105,6 @@ small:after{
 }
 
 
-.output-box{
-	overflow: hidden;
-}
-.output-box img{
-	display: block;
-	float: left;
-	max-width:600px;
-}
 pre{
 	background:#222;
 	color:#FFF;
@@ -154,36 +149,78 @@ hr{
 	text-overflow:ellipsis;
 	white-space: nowrap;
 }
+.output-box{
+    overflow: hidden;
+    img{
+        display: block;
+        object-fit: contain;
+    }
+}
+@media(min-width:900px){
+    .output-box{
+        // max-width:1200px;
+        img{
+            float: left;
+            max-width: var(--max-width);
+            max-height: var(--max-width);
+        }
+    }
+}
+@media(max-width:900px) and (min-width:600px){
+	.output-box{
+        &[data-direction="vertical"]{ //竖向
+            img{
+                width:50%;
+                float: left;
+            }
+        }
+        &[data-direction="horizontal"]{ // 横向
+            img{
+                width: 100%;
+            }
+        }
+    } 
+}
 
-
-@media(max-width:1200px){
+@media(max-width:600px){
 	.output-box{
 		cursor: pointer;
-		position: relative;
-		z-index:0;
-	}
-	.output-box img{
-		margin:0 auto;
-		max-width:100vw;
-	}
-	.source-image{
-		pointer-events: none;
-		position: absolute;
-	}
-	.output-image{
-		display: block;
-		position: relative;
-		z-index:1;
-	}
-	.output-box:active{
+		// position: relative;
+		// z-index:0;
+        img{
+            margin:0 auto;
+        }
+        &[data-direction="vertical"]{ //竖向
+            img{
+                width: 50%;
+                float: left;
+            }
+        }
+        &[data-direction="horizontal"]{ // 横向
+            img{
+                width: 100%;
+            }
+        }
+        
+    }
+	// .source-image{
+	// 	pointer-events: none;
+	// 	position: absolute;
+	// }
+	// .output-image{
+	// 	display: block;
+	// 	position: relative;
+	// 	z-index:1;
+	// }
+	// .output-box:active{
 
-	}
-	.output-box:active .source-image{
-		display: block;
-	}
-	.output-box:active.output-image{
-		opacity: 0;
-	}
+	// }
+	// .output-box:active .source-image{
+	// 	display: block;
+	// }
+	// .output-box:active.output-image{
+	// 	opacity: 0;
+	// }
 }
 
 code{
@@ -253,6 +290,19 @@ button{
 	cursor: pointer;
 }
 
+fieldset{
+    border:0;
+    padding:0;
+    margin:0;
+    &:disabled{
+        &>*{
+            opacity: 0.2;
+            input{
+                opacity: 1;
+            }
+        }
+    }
+}
 /* 20220407 itorr ui */
 input[type="range"]{
 	width:400px;
@@ -266,33 +316,33 @@ input[type="range"]{
 	background:none;
 
 	cursor: pointer;
-	
-}
-input[type="range"]::-webkit-slider-runnable-track {
-	-webkit-appearance: none;
-	appearance: none;
-	background:currentColor;
-	height:2px;
-}
-input[type="range"]::-webkit-slider-thumb{
-	height:18px;
-	width:10px;
-	margin:-8px 0;
-	background:currentColor;
-	border:2px solid var(--background-color);
-	-webkit-appearance:none;
-	appearance: none;
-	border-radius:0;
-	box-shadow:none;
-}
-input[type="range"]:disabled{
-    opacity: .5;
-    cursor: not-allowed;
-}
-input[type="range"]:disabled::-webkit-slider-thumb{
-    cursor: not-allowed;
-}
+        
+    &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        appearance: none;
+        background:currentColor;
+        height:2px;
+    }
+    &::-webkit-slider-thumb{
+        height:18px;
+        width:10px;
+        margin:-8px 0;
+        background:currentColor;
+        border:2px solid var(--background-color);
+        -webkit-appearance:none;
+        appearance: none;
+        border-radius:0;
+        box-shadow:none;
+    }
+    &:disabled{
+        opacity: .2;
+        cursor: not-allowed;
 
+        &::-webkit-slider-thumb{
+            cursor: not-allowed;
+        }
+    }
+}
 
 label{
 	cursor: pointer;

@@ -208,8 +208,8 @@ const patina = (imageEl, _config, app)=>{
     
     // console.log(naturalWidth,naturalHeight,_width,_height)
 
-    _width  = _width  / 100 * _config.zoom
-    _height = _height / 100 * _config.zoom
+    _width  = Math.floor( _width  / 100 * _config.zoom )
+    _height = Math.floor( _height / 100 * _config.zoom )
 
     canvas.width = _width
     canvas.height = _height
@@ -218,367 +218,371 @@ const patina = (imageEl, _config, app)=>{
     app.width = _width
 
 
-	let cutLeft = 0;
-	let cutTop  = 0;
+    requestAnimationFrame(_=>{
+            
+        let cutLeft = 0;
+        let cutTop  = 0;
 
-	let calcWidth  = naturalWidth;
-	let calcHeight = naturalHeight;
+        let calcWidth  = naturalWidth;
+        let calcHeight = naturalHeight;
 
-	let setLeft = 0;
-	let setTop  = 0;
+        let setLeft = 0;
+        let setTop  = 0;
 
-	let setWidth  = _width;
-	let setHeight = _height;
+        let setWidth  = _width;
+        let setHeight = _height;
 
-    //leftShift
-    setLeft = setLeft + _config.shiftx;
-    setTop = setTop + _config.shifty;
+        //leftShift
+        setLeft = setLeft + _config.shiftx;
+        setTop = setTop + _config.shifty;
 
-    ctx.rect(0,0,_width,_height);
-    ctx.fillStyle='#FFF';
-    ctx.fill();
-
-
-    if(_config.mix === 1){
-        ctx.drawImage(
-            imageEl,
-            cutLeft,cutTop,
-            calcWidth,calcHeight,
-
-            setLeft,setTop,
-            setWidth,setHeight
-        );
-
-    }else{ //像素合并
-        let mixedWidth = _width / _config.mix;
-        let mixedHeight = _height / _config.mix;
+        ctx.rect(0,0,_width,_height);
+        ctx.fillStyle='#FFF';
+        ctx.fill();
 
 
-        ctx.drawImage(
-            imageEl,
-            cutLeft,cutTop,
-            calcWidth,calcHeight,
+        if(_config.mix === 1){
+            ctx.drawImage(
+                imageEl,
+                cutLeft,cutTop,
+                calcWidth,calcHeight,
 
-            (_width - mixedWidth)/2,(_height - mixedHeight)/2,
-            mixedWidth,mixedHeight
-        );
-
-        ctx.drawImage(
-            canvas,
-            (_width - mixedWidth)/2,(_height - mixedHeight)/2,
-            mixedWidth,mixedHeight,
-
-            setLeft,setTop,
-            setWidth,setHeight
-        );
-    }
-
-    let getWatermarkPlan = (shift,i = randRange2(0,2))=>{
-        // console.log(/i/,i)
-        switch(i){
-            case 0:
-                return {
-                    align: 'right',
-                    left: _width - shift*1.2 + randRange(-5,5),
-                    top: _height - shift + randRange(-5,5)
-                }
-            case 1:
-                return {
-                    align: 'center',
-                    left: _width / 2 + randRange(-10,10),
-                    top: _height - shift * 1.2 + randRange(-5,5)
-                }
-            case 2:
-                return {
-                    align: 'center',
-                    left: _width / 2 + randRange(-10,10),
-                    top: _height / 2 + shift + randRange(-10,10)
-                }
-        }
-    };
-
-    const watermark = _=>{
-
-        let randSize = randRange(0,7);
-
-        let fontSize = 22 + randSize;
-
-
-        fontSize = _width / fontSize;
-
-        fontSize = fontSize * _config.watermarkSize
-
-        ctx.shadowColor = `rgba(0, 0, 0, ${_config.watermarkShadowAlpha})`;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 1;
-        ctx.shadowBlur = 4;
-        ctx.font = `${fontSize}px/400 苹方,微软雅黑,sans-serif`;
-        ctx.fillStyle = '#fff';
-
-
-        const shift = fontSize/2;
-        const watermarkPlan = getWatermarkPlan(shift,randRange2(0,_config.watermarkPlan));
-
-
-
-        ctx.textAlign = watermarkPlan.align;
-        ctx.textBaseline='bottom';
-
-        ctx.fillText('@'+randName(_config.userNames),watermarkPlan.left,watermarkPlan.top);
-    }
-    if(_config.watermark){
-        watermark();
-    }
-
-    const green =_=>{
-
-        const imageData = ctx.getImageData(0, 0, _width, _height);
-        const data = imageData.data;
-        for(let p = 0; p < data.length/4; ++p) {
-            const r = data[p*4  ];
-            const g = data[p*4+1];
-            const b = data[p*4+2];
-            const y = clamp  ((  77*r + 150*g +  29*b) >> 8);
-            const u = clampuv(((-43*r -  85*g + 128*b) >> 8) - 1);
-            const v = clampuv(((128*r - 107*g -  21*b) >> 8) - 1);
-            const r1 = clamp((65536*y           + 91881*v) >> 16);
-            const g1 = clamp((65536*y - 22553*u - 46802*v) >> 16);
-            const b1 = clamp((65536*y + 116130*u         ) >> 16);
-            data[p*4  ] = r1;
-            data[p*4+1] = g1;
-            data[p*4+2] = b1;
-        }
-        ctx.putImageData(imageData, 0, 0);
-    }
-
-
-    if(_config.green){
-        green();
-    }
-
-   
-
-
-    if(
-        _config.lightNoise 
-        || 
-        _config.darkNoise 
-        || 
-        _config.contrast !== 1 
-        || 
-        _config.light !== 0 
-        || 
-        _config.g !== 0 
-        ||
-        _config.convoluteName
-        ){
-        let pixel = ctx.getImageData(0, 0, _width, _height);
-        let pixelData = pixel.data;
-
-		for(let i = 0;i < pixelData.length;i += 4){
-			let yuv = rgb2yuv(
-				pixelData[i  ],
-				pixelData[i+1],
-				pixelData[i+2],
-			);
-
-
-			pixelData[ i   ] = yuv[0];
-			pixelData[ i+1 ] = yuv[1];
-			pixelData[ i+2 ] = yuv[2];
-
-		}
-
-        if(_config.lightNoise){
-            let halt = _config.lightNoise/2;
-            for (let i = 0; i < pixelData.length; i +=4) {
-                pixelData[i] = pixelData[i] + (randRange(0,_config.lightNoise) - halt)// * (255 - pixelData[i])/255;
-            }
-        }
-        if(_config.darkNoise){
-            let halt = _config.darkNoise/2;
-            for (let i = 0; i < pixelData.length; i +=4) {
-                pixelData[i] = pixelData[i] + (randRange(0,_config.darkNoise) - halt) * (255 - pixelData[i])/255;
-                //噪声在亮部不那么明显
-            }
-        }
-
-		//对比度
-        if(_config.contrast !== 1){
-            for (let i = 0; i < pixelData.length; i +=4) {
-                pixelData[i] = ( pixelData[i] - 128 ) * _config.contrast + 128;
-            }
-        }
-
-		//亮度
-        if(_config.light !== 0){
-            for (let i = 0; i < pixelData.length; i +=4) {
-                pixelData[i] =  pixelData[i] + _config.light * 128;
-            }
-        }
-
-        //卷积
-		if(_config.convoluteName){
-			pixel = convolute(
-				pixel,
-				Convolutes[_config.convoluteName]
-			);
-			pixelData = pixel.data;
-		}
-
-        for(let i = 0;i < pixelData.length;i += 4){
-
-			//绿化
-            if(_config.g){
-                let gAdd = _config.g * 4;
-                pixelData[ i   ] -= gAdd * _config.gy;
-                pixelData[ i+1 ] -= gAdd;
-                pixelData[ i+2 ] -= gAdd;
-            }
-
-            let _rgb = yuv2rgb(
-                pixelData[i],
-                pixelData[i+1],
-                pixelData[i+2],
+                setLeft,setTop,
+                setWidth,setHeight
             );
 
-            pixelData[i   ] = _rgb[0];
-            pixelData[i+1 ] = _rgb[1];
-            pixelData[i+2 ] = _rgb[2];
+        }else{ //像素合并
+            let mixedWidth = _width / _config.mix;
+            let mixedHeight = _height / _config.mix;
+
+
+            ctx.drawImage(
+                imageEl,
+                cutLeft,cutTop,
+                calcWidth,calcHeight,
+
+                (_width - mixedWidth)/2,(_height - mixedHeight)/2,
+                mixedWidth,mixedHeight
+            );
+
+            ctx.drawImage(
+                canvas,
+                (_width - mixedWidth)/2,(_height - mixedHeight)/2,
+                mixedWidth,mixedHeight,
+
+                setLeft,setTop,
+                setWidth,setHeight
+            );
         }
 
-        ctx.putImageData(pixel, 0, 0);
-    }
-
-    let _round = _config.round
-    let i = 1
-
-    app.current = 1
-
-    let isPop = _config.isPop //_config.pop !== 1
-
-    let popWidth = _width
-    let popHeight = _height
-
-    popWidth = _width * _config.pop
-    popHeight = _height * _config.pop
-
-    if(isPop){
-        _round = Math.pow(_config.pop, 2)
-        
-        if(_config.preview && _width < _config.maxWidth){
-
-            let maxPopWidth =  _config.maxWidth * 2
-
-            if(popWidth > maxPopWidth){
-                popWidth =  maxPopWidth
-                popHeight =  maxPopWidth * _height / _width
+        let getWatermarkPlan = (shift,i = randRange2(0,2))=>{
+            // console.log(/i/,i)
+            switch(i){
+                case 0:
+                    return {
+                        align: 'right',
+                        left: _width - shift*1.2 + randRange(-5,5),
+                        top: _height - shift + randRange(-5,5)
+                    }
+                case 1:
+                    return {
+                        align: 'center',
+                        left: _width / 2 + randRange(-10,10),
+                        top: _height - shift * 1.2 + randRange(-5,5)
+                    }
+                case 2:
+                    return {
+                        align: 'center',
+                        left: _width / 2 + randRange(-10,10),
+                        top: _height / 2 + shift + randRange(-10,10)
+                    }
             }
+        };
+
+        const watermark = _=>{
+
+            let randSize = randRange(0,7);
+
+            let fontSize = 22 + randSize;
+
+
+            fontSize = _width / fontSize;
+
+            fontSize = fontSize * _config.watermarkSize
+
+            ctx.shadowColor = `rgba(0, 0, 0, ${_config.watermarkShadowAlpha})`;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 1;
+            ctx.shadowBlur = 4;
+            ctx.font = `${fontSize}px/400 苹方,微软雅黑,sans-serif`;
+            ctx.fillStyle = '#fff';
+
+
+            const shift = fontSize/2;
+            const watermarkPlan = getWatermarkPlan(shift,randRange2(0,_config.watermarkPlan));
+
+
+
+            ctx.textAlign = watermarkPlan.align;
+            ctx.textBaseline='bottom';
+
+            ctx.fillText('@'+randName(_config.userNames),watermarkPlan.left,watermarkPlan.top);
         }
-
-        let maxPopWidth = 4000;
-        if(popWidth > maxPopWidth){
-            popWidth =  maxPopWidth
-            popHeight =  maxPopWidth * _height / _width
-        }
-
-
-        popCanvas.width = popWidth
-        popCanvas.height = popHeight
-    }
-        
-    const one = _=>{
-        i++;
-        app.current++
-       
         if(_config.watermark){
             watermark();
         }
+
+        const green =_=>{
+
+            const imageData = ctx.getImageData(0, 0, _width, _height);
+            const data = imageData.data;
+            for(let p = 0; p < data.length/4; ++p) {
+                const r = data[p*4  ];
+                const g = data[p*4+1];
+                const b = data[p*4+2];
+                const y = clamp  ((  77*r + 150*g +  29*b) >> 8);
+                const u = clampuv(((-43*r -  85*g + 128*b) >> 8) - 1);
+                const v = clampuv(((128*r - 107*g -  21*b) >> 8) - 1);
+                const r1 = clamp((65536*y           + 91881*v) >> 16);
+                const g1 = clamp((65536*y - 22553*u - 46802*v) >> 16);
+                const b1 = clamp((65536*y + 116130*u         ) >> 16);
+                data[p*4  ] = r1;
+                data[p*4+1] = g1;
+                data[p*4+2] = b1;
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+
         if(_config.green){
             green();
         }
 
-        const _src = canvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.1)
+    
+
+
+        if(
+            _config.lightNoise 
+            || 
+            _config.darkNoise 
+            || 
+            _config.contrast !== 1 
+            || 
+            _config.light !== 0 
+            || 
+            _config.g !== 0 
+            ||
+            _config.convoluteName
+            ){
+            let pixel = ctx.getImageData(0, 0, _width, _height);
+            let pixelData = pixel.data;
+
+            for(let i = 0;i < pixelData.length;i += 4){
+                let yuv = rgb2yuv(
+                    pixelData[i  ],
+                    pixelData[i+1],
+                    pixelData[i+2],
+                );
+
+
+                pixelData[ i   ] = yuv[0];
+                pixelData[ i+1 ] = yuv[1];
+                pixelData[ i+2 ] = yuv[2];
+
+            }
+
+            if(_config.lightNoise){
+                let halt = _config.lightNoise/2;
+                for (let i = 0; i < pixelData.length; i +=4) {
+                    pixelData[i] = pixelData[i] + (randRange(0,_config.lightNoise) - halt)// * (255 - pixelData[i])/255;
+                }
+            }
+            if(_config.darkNoise){
+                let halt = _config.darkNoise/2;
+                for (let i = 0; i < pixelData.length; i +=4) {
+                    pixelData[i] = pixelData[i] + (randRange(0,_config.darkNoise) - halt) * (255 - pixelData[i])/255;
+                    //噪声在亮部不那么明显
+                }
+            }
+
+            //对比度
+            if(_config.contrast !== 1){
+                for (let i = 0; i < pixelData.length; i +=4) {
+                    pixelData[i] = ( pixelData[i] - 128 ) * _config.contrast + 128;
+                }
+            }
+
+            //亮度
+            if(_config.light !== 0){
+                for (let i = 0; i < pixelData.length; i +=4) {
+                    pixelData[i] =  pixelData[i] + _config.light * 128;
+                }
+            }
+
+            //卷积
+            if(_config.convoluteName){
+                pixel = convolute(
+                    pixel,
+                    Convolutes[_config.convoluteName]
+                );
+                pixelData = pixel.data;
+            }
+
+            for(let i = 0;i < pixelData.length;i += 4){
+
+                //绿化
+                if(_config.g){
+                    let gAdd = _config.g * 4;
+                    pixelData[ i   ] -= gAdd * _config.gy;
+                    pixelData[ i+1 ] -= gAdd;
+                    pixelData[ i+2 ] -= gAdd;
+                }
+
+                let _rgb = yuv2rgb(
+                    pixelData[i],
+                    pixelData[i+1],
+                    pixelData[i+2],
+                );
+
+                pixelData[i   ] = _rgb[0];
+                pixelData[i+1 ] = _rgb[1];
+                pixelData[i+2 ] = _rgb[2];
+            }
+
+            ctx.putImageData(pixel, 0, 0);
+        }
+
+        let _round = _config.round
+        let i = 1
+
+        app.current = 1
+
+        let isPop = _config.isPop //_config.pop !== 1
+
+        let popWidth = _width
+        let popHeight = _height
+
+        popWidth = _width * _config.pop
+        popHeight = _height * _config.pop
+
+        if(isPop){
+            _round = Math.pow(_config.pop, 2)
+            
+            if(_config.preview && _width < _config.maxWidth){
+
+                let maxPopWidth =  _config.maxWidth * 2
+
+                if(popWidth > maxPopWidth){
+                    popWidth =  maxPopWidth
+                    popHeight =  maxPopWidth * _height / _width
+                }
+            }
+
+            let maxPopWidth = 4000;
+            if(popWidth > maxPopWidth){
+                popWidth =  maxPopWidth
+                popHeight =  maxPopWidth * _height / _width
+            }
+
+
+            popCanvas.width = popWidth
+            popCanvas.height = popHeight
+        }
+            
+        const one = _=>{
+            i++;
+            app.current++
+        
+            if(_config.watermark){
+                watermark();
+            }
+            if(_config.green){
+                green();
+            }
+
+            const _src = canvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.1)
+            const _imgEl = new Image()
+
+            _imgEl.onload= _=>{
+                // console.log(i)//,randRange)
+
+                let randi = 2;
+                let randPix = randRange(-randi,randi);
+                let randPiy = randRange(-randi,randi);
+
+                ctx.rect(0,0,_width,_height);
+                ctx.fillStyle='#FFF';
+                ctx.fill();
+                        
+                ctx.drawImage(
+                    _imgEl,
+                    0,0,
+                    _width,_height,
+                    0 - randPix/2,0 - randPiy/2,
+                    _width + randPix,_height + randPiy,
+                )
+
+                if(isPop){
+                    popCtx.drawImage(
+                        _imgEl,
+                        (i-1) % _config.pop * popWidth / _config.pop,
+                        Math.floor((i-1) / _config.pop) * popHeight / _config.pop,
+                        popWidth / _config.pop,
+                        popHeight / _config.pop
+                    )
+                }
+                
+                if(i < _round){
+                    one();
+                }else{
+                    app.output = _src
+                    app.runing = false
+                    app.current = 0
+
+                    if(isPop){
+                        app.output = popCanvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.05)
+                    }
+                }
+            }
+            _imgEl.src = _src
+            app.output = _src
+        
+    }
+
+        const _src = canvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.05)
         const _imgEl = new Image()
-
+        
         _imgEl.onload= _=>{
-            // console.log(i)//,randRange)
+            // console.log(/原本执行那一次质量调整/,i)
 
-            let randi = 2;
-            let randPix = randRange(-randi,randi);
-            let randPiy = randRange(-randi,randi);
-
-            ctx.rect(0,0,_width,_height);
-            ctx.fillStyle='#FFF';
-            ctx.fill();
-                    
             ctx.drawImage(
                 _imgEl,
                 0,0,
-                _width,_height,
-                0 - randPix/2,0 - randPiy/2,
-                _width + randPix,_height + randPiy,
-            )
+                _width,_height
+            );
 
             if(isPop){
                 popCtx.drawImage(
                     _imgEl,
-                    (i-1) % _config.pop * popWidth / _config.pop,
-                    Math.floor((i-1) / _config.pop) * popHeight / _config.pop,
+                    0,0,
                     popWidth / _config.pop,
                     popHeight / _config.pop
                 )
             }
-            
-            if(i < _round){
-                one();
-            }else{
-                app.output = _src
+
+            app.output = _src
+
+            if(_round === 1){
                 app.runing = false
                 app.current = 0
-
-                if(isPop){
-                    app.output = popCanvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.05)
-                }
+            }else{
+                one();
             }
+            
+
         }
         _imgEl.src = _src
         app.output = _src
-       
-   }
 
-    const _src = canvas.toDataURL('image/jpeg',_config.quality/100 + Math.random()*0.05)
-    const _imgEl = new Image()
-    
-    _imgEl.onload= _=>{
-        // console.log(/原本执行那一次质量调整/,i)
-
-        ctx.drawImage(
-            _imgEl,
-            0,0,
-            _width,_height
-        );
-
-        if(isPop){
-            popCtx.drawImage(
-                _imgEl,
-                0,0,
-                popWidth / _config.pop,
-                popHeight / _config.pop
-            )
-        }
-
-        app.output = _src
-
-        if(_round === 1){
-            app.runing = false
-            app.current = 0
-        }else{
-            one();
-        }
-        
-
-    }
-    _imgEl.src = _src
-    app.output = _src
+    });
 }
