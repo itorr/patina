@@ -71,18 +71,19 @@ small{
 	opacity: .8;
 	font-weight: normal;
 	word-break: break-all;
+    &:before,
+    &:after{
+        opacity: .5;
+        margin:0 .2em;
+    }
+    &:before{
+        content: '(';
+    }
+    &:after{
+        content: ')';
+    }
 }
-small:before,
-small:after{
-	opacity: .5;
-	margin:0 .2em;
-}
-small:before{
-	content: '(';
-}
-small:after{
-	content: ')';
-}
+
 .input-box{
 	padding:4px 0;
 }
@@ -113,9 +114,9 @@ pre{
 }
 .app[data-runing="true"]{
 	cursor: wait;
-}
-.app[data-runing="true"] .ctrl-box{
-	pointer-events: none;
+    .ctrl-box{
+        pointer-events: none;
+    }
 }
 
 hr{
@@ -129,26 +130,28 @@ hr{
 	border-top:2px solid rgba(0,0,0,.05);
 	/* margin:20px 0; */
 	padding:15px;
+    ul{
+        margin:4px 0;
+        padding:0;
+        list-style-type: none;
+        li{
+            margin:.6em 0;
+            padding:0;
+            line-height:1.4;
+        }
+    }
+    h6{
+        font-weight:normal;
+    }
+    a{
+        display: block;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
 }
-.tip-box ul{
-	margin:4px 0;
-	padding:0;
-	list-style-type: none;
-}
-.tip-box ul li{
-	margin:.6em 0;
-	padding:0;
-	line-height:1.4;
-}
-.tip-box h6{
-	font-weight:normal;
-}
-.tip-box a{
-	display: block;
-	overflow: hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
-}
+
+
 .output-box{
     overflow: hidden;
     img{
@@ -237,11 +240,10 @@ blockquote{
 	color:var(--background-color);
 	margin:0;
 	padding:15px;
+    p{
+        margin:0;
+    }
 }
-blockquote p{
-	margin:0;
-}
-
 .post-box{
 	padding:15px;
 }
@@ -259,18 +261,15 @@ blockquote p{
 footer{
 	padding:15px 15px 60px;
 	line-height: 2;
+    hr{
+        display: inline-block;
+        vertical-align: middle;
+        border:0;
+        height:1em;
+        margin:0 .2em;
+        border-left:1px solid rgba(0,0,0,.2);
+    }
 }
-footer hr{
-	display: inline-block;
-	vertical-align: middle;
-	border:0;
-	height:1em;
-	margin:0 .2em;
-	border-left:1px solid rgba(0,0,0,.2);
-}
-
-
-
 
 
 :root{

@@ -186,9 +186,9 @@ let config = deepCopy(defaultConfig);
 config.userNames = userNamesText.trim().split('\n')
 
 const data = {
-	// src:'totoro-avatar.jpg',
-	src:'hibike-capture.png',
-	src:'IMG_7076.JPG',
+	src:'totoro-avatar.jpg',
+	// src:'hibike-capture.png',
+	// src:'IMG_7076.JPG',
 	output:null,
 	img:null,
 	direction:'vertical',
