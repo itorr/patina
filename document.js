@@ -223,7 +223,7 @@ const app = new Vue({
 
 		
 			let scale = _width / _height;
-			let direction = scale > 1.4 ? 'horizontal' : 'vertical';
+			let direction = scale > 1.2 ? 'horizontal' : 'vertical';
 
 			app.direction = direction;
 			app.patina();
