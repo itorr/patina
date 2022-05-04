@@ -93,7 +93,7 @@ let defaultConfig = {
 	isPop:false,
 	preview:true,
 	pop:4, //波普
-	maxWidth:600,
+	maxWidth:500,
 	zoom: 100,
 	mix:1, //像素合并
 	level: 4, //颜色断层
