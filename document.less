@@ -1,12 +1,13 @@
 @font-face {
-	font-family: ZpixReviewLocal;
-	src: url(zpix.woff2);
+	font-family: ZpixLocal;
+	// src: url(zpix.woff2);
+	src: url(zpix-split.woff);
 }
 :root{
-    --max-width: 600px;
+    --max-width: 500px;
 }
 html{
-	font:400 12px/1.4 ZpixReviewLocal,sans-serif;
+	font:400 12px/1.4 ZpixLocal,sans-serif;
 	text-rendering:optimizeLegibility;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
@@ -196,8 +197,15 @@ hr{
         }
         &[data-direction="vertical"]{ //竖向
             img{
-                width: 50%;
-                float: left;
+                max-width: 100%;
+                // float: left;
+                max-height:150vw;
+                
+                min-width: 40%;
+                min-height:40vw;
+            }
+            .source-image{
+                display: none;
             }
         }
         &[data-direction="horizontal"]{ // 横向

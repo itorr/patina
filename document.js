@@ -263,20 +263,28 @@ const app = new Vue({
 	}
 })
 
-const loadScript = (src,el) =>{
+
+if(!/\/$/.test(location.pathname))location.pathname = location.pathname + '/';
+
+
+const loadScript = (src,onLoad=_=>{},el) =>{
 	el = document.createElement('script');
 	el.src = src;
+	el.onload = onLoad;
 	document.body.appendChild(el);
 };
 
 window._hmt = [];
+const gtmId = 'G-13BQC1VDD8';
 window.dataLayer = [
     ['js', new Date()],
-    ['config', 'G-13BQC1VDD8']
+    ['config', gtmId]
 ];
 window.gtag = function(){dataLayer.push(arguments)};
 setTimeout(_=>{
-	// loadScript('//s4.cnzz.com/z_stat.php?id=1278706389&web_id=1278706389');
-	loadScript('//hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
-	loadScript('//www.googletagmanager.com/gtag/js?id=G-13BQC1VDD8');
-},400);
+	loadScript('https://hm.baidu.com/hm.js?f4e477c61adf5c145ce938a05611d5f0');
+	loadScript('https://www.googletagmanager.com/gtag/js?id='+gtmId);
+	loadScript('https://sdk.51.la/js-sdk-pro.min.js',_=>{
+		LA.init({id: "JgPCvOAtY0gH7fbQ",ck: "JgPCvOAtY0gH7fbQ",autoTrack:true,hashMode:true})
+	})
+},1400);
