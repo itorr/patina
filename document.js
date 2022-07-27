@@ -198,8 +198,7 @@ const data = {
 	config,
 	width:400,
 	userNamesText,
-	superMode:false,
-  convoluteNames
+	superMode:false
 };
 
 
