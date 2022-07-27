@@ -532,10 +532,11 @@ const patina = (imageEl, _config, app)=>{
                     )
                 }
                 
+                app.output = _src
+
                 if(i < _round){
                     one();
                 }else{
-                    app.output = _src
                     app.runing = false
                     app.current = 0
 
@@ -545,7 +546,6 @@ const patina = (imageEl, _config, app)=>{
                 }
             }
             _imgEl.src = _src
-            app.output = _src
         
     }
 
