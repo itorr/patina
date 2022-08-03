@@ -28,6 +28,7 @@ button,input{
 }
 a{
 	color:#34a133;
+	cursor: pointer;
 }
 ::selection{
 	background: #215200;
@@ -251,6 +252,13 @@ blockquote{
 	padding:15px;
     p{
         margin:0;
+		time{
+			opacity: 0.5;
+			&:after{
+				content: ':';
+				margin-right:.1em;
+			}
+		}
     }
 }
 .post-box{

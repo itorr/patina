@@ -33,9 +33,11 @@
                 <input type="checkbox" v-model="config.isPop">
                 波普
             </label>
-            <span v-if="current" style="display:inline-block;width:5em;text-align:right">{{current}}/{{config.isPop?config.pop*config.pop:config.round}}</span>
-            <span v-if="isLoadingGIF" style="display:inline-block;width:10em;text-align:right">正在读取GIF...</span>
-            <span v-if="isPackingGIF" style="display:inline-block;width:10em;text-align:right">正在生成GIF...</span>
+            <span style="display:inline-block;text-align:right;margin-left:3em;">
+                <span v-if="isLoadingGIF">正在读取 GIF...</span>
+                <span v-else-if="isPackingGIF">正在生成 GIF...</span>
+                <span v-else-if="current">{{current}}/{{config.isPop?config.pop*config.pop:config.round}}</span>
+            </span>
             <!-- <input type="range" min=1 max=100 step="1" v-model.number="config.green"> {{config.green}} -->
         </div>
 
@@ -190,6 +192,14 @@
     <blockquote>
         <h2>「电子包浆」 图片做旧工具，赛博包浆虚拟器🤢</h2>
         <p>&nbsp;</p>
+        <p>
+            <time>220802</time>
+            支持 <b>GIF</b> 动图啦！
+            <a @click="src='chiya.gif'">试一试</a>
+            <a href="https://github.com/itorr/patina/pull/7" target="_blank">#7</a>
+            <a href="https://github.com/HomeArchbishop" target="_blank">@拆家大主教</a>
+        </p>
+        <p>&nbsp;</p>
         <p>支持 <b>图片绿化</b>、<b>虚拟水印</b>、<b>虚拟传播年份</b>、<b>高效率模糊</b>、<b>浮雕锐化</b>、<b>噪点颗粒</b>、<b>像素不对齐</b>、<b>作假多次包浆绿化</b> 和 基础 <b>对比度</b>、<b>亮度</b>调整 以及 <b>波普重复</b>功能😈</p>
         <p>&nbsp;</p>
         <p>水印用户名可自定义</p>
@@ -213,7 +223,7 @@
             <br>
             <a href="https://weibo.com/1197780522/Lmoup2eDs" target="_blank">转发到微博</a>
             <br>
-            全做：<a href="https://weibo.com/reiove" target="_blank">@卜卜口</a>
+            <a href="https://weibo.com/reiove" target="_blank">@卜卜口</a>
             <hr>
             反馈：<a href="https://github.com/itorr/patina" target="_blank">GitHub</a>
             <hr>
