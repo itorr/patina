@@ -111,7 +111,7 @@ let defaultConfig = {
 	light:0,//亮度
 	contrast:1, //对比度
 	convoluteName:null, //convolute
-	quality: 16, 
+	quality: 60, 
 	green:true, //贴吧绿图
 	g:0,
 	gy:1,
