@@ -575,7 +575,7 @@
     const gif = new GIF({
       workers: 2,
       quality: 1,
-      workerScript: '/patina-gif/lib/gif.worker.js'
+      workerScript: 'patina-gif/lib/gif.worker.js'
     })
     for (const img of imgElListPatina) {
       gif.addFrame(img, { delay: gapTime })
