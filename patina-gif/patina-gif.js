@@ -586,6 +586,7 @@
       app.output = URL.createObjectURL(blob)
       app.isPackingGIF = false
       app.runing = false
+      app.current = 0
       console.timeEnd('p')
     })
     gif.render()
