@@ -83,6 +83,13 @@ const request = (method,uri,data,callback)=>{
 	}).then(res => res.json()).then(data => callback(data)).catch(error => console.error(error))
 };
 
+const isGIF = async (src) => {
+  return await fetch(src)
+    .then(response => response.arrayBuffer())
+    .then(arrBuff => new Uint8Array(arrBuff).map(byte => byte.toString(16).padStart(2, '0')).slice(0, 4).join(''))
+    .then(str => str === '47494638')
+    .catch(() => null)
+}
 
 
 const isImageRegex = /^image\/(.+)$/;
@@ -118,6 +125,9 @@ let defaultConfig = {
 };
 
 const userNamesText = `卜卜口
+拆家大主教
+HomeArchbishop
+_Home_Archbishop_
 _蒸_気_機_
 能不能好好说话
 神奇海螺_0000
@@ -189,6 +199,8 @@ const data = {
 	src:'totoro-avatar.jpg',
 	// src:'hibike-capture.png',
 	// src:'IMG_7076.JPG',
+  // src: 'chiya.gif',
+  // src: 'panda.gif',
 	output:null,
 	img:null,
 	direction:'vertical',
@@ -199,7 +211,11 @@ const data = {
 	width:400,
 	userNamesText,
 	superMode:false,
-  convoluteNames
+  convoluteNames,
+  isGIF: false,
+  isLoadingGIF: false,
+  isPackingGIF: false,
+  lastConfig: {}
 };
 
 
@@ -210,14 +226,18 @@ const app = new Vue({
 	data,
 	methods:{
 		patina(){
-			patina(this.$refs.img,this.config,app)
+      if (this.isGIF) {
+        patinaGIF(this.$refs.img,this.config,app)
+      } else {
+        patina(this.$refs.img,this.config,app)
+      }
 		},
 		_patina(){
 
 			clearTimeout(this.T)
 			this.T = setTimeout(this.patina,300)
 		},
-		load(){
+		async load(){
 			const imageEl = this.$refs.img;
 			let _width  = imageEl.naturalWidth;
 			let _height = imageEl.naturalHeight;
@@ -225,6 +245,8 @@ const app = new Vue({
 		
 			let scale = _width / _height;
 			let direction = scale > 1.2 ? 'horizontal' : 'vertical';
+
+      this.isGIF = await isGIF(imageEl.src)
 
 			app.direction = direction;
 			app.patina();
@@ -249,7 +271,9 @@ const app = new Vue({
 				console.log(config)
 				const maxWidth = config.maxWidth;
 				document.documentElement.style.setProperty('--max-width', `${maxWidth}px`);
-				this._patina();
+				if (!this.isGIF) {
+          this._patina();
+        }
 			}
 		},
 		userNamesText(text){
@@ -260,7 +284,9 @@ const app = new Vue({
 		}
 	},
 	computed:{
-		
+		isShouldRedoGIF () {
+      return JSON.stringify(this.lastConfig) !== JSON.stringify(this.config)
+    }
 	}
 })
 
