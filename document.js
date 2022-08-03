@@ -125,6 +125,9 @@ let defaultConfig = {
 };
 
 const userNamesText = `卜卜口
+拆家大主教
+HomeArchbishop
+_Home_Archbishop_
 _蒸_気_機_
 能不能好好说话
 神奇海螺_0000
