@@ -294,16 +294,20 @@ footer{
 }
 
 
-button{
+button,.btn{
+	display: inline-block;
+	box-sizing: content-box;
 	border:2px solid currentColor;
 	color:currentColor;
 	appearance: none;
 	padding:4px 6px;
+	line-height: 1.4;
 	background: var(--background-color);
 	box-shadow:
 		2px 2px 0 #FFF inset,
 		-2px -2px 0 rgba(0,0,0,.1) inset;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 fieldset{

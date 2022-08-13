@@ -257,11 +257,11 @@ const app = new Vue({
 			_config.userNames = this.userNamesText.trim().split('\n')
 			this.config = _config
 		},
-		save(){
-			const a = document.createElement('a');
+		save(e){
+			const a = e.target;
 			a.href = this.output;
 			a.download = `[lab.magiconch.com][电子包浆]-${+Date.now()}.jpg`;
-			a.click();
+			// a.click();
 		}
 	},
 	watch:{

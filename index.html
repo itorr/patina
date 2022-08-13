@@ -17,7 +17,7 @@
     <div class="ctrl-box" v-if="config" v-cloak>
         <div class="input-box">
             <button @click="chooseFileAndSetImageSrc">选择或粘贴拖拽图片</button>
-            <button @click="save">保存图片</button>
+            <a class="btn" @click="save">保存图片</a>
             <button v-if="isShouldRedoGIF && isGIF" @click="_patina">重新渲染GIF</button>
         </div>
         <div class="input-box" style="padding:10px 0;">

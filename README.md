@@ -2,6 +2,13 @@
 
 给表情赋予年份
 
+
+      
+2022-08-02:
+支持 **GIF** 动图啦！!
+[#7](https://github.com/itorr/patina/pull/7)
+[@拆家大主教](https://github.com/HomeArchbishop)
+
 支持 **图片绿化**、**虚拟水印**、**虚拟传播年份**、**高效率模糊**、**浮雕锐化**、**噪点颗粒**、**像素不对齐**、**作假多次包浆绿化** 和 基础 **对比度**、**亮度**调整 以及 **波普重复功能**😈
 
 水印用户名可自定义
@@ -9,7 +16,7 @@
 
 
 ## 项目地址
-[https://lab.magiconch.com/patina/](https://lab.magiconch.com/patina/?from=github)
+[https://magiconch.com/patina/](https://magiconch.com/patina/)
 
 ## 为什么做
 图片效果化处理摸索中
