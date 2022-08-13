@@ -201,6 +201,7 @@ const data = {
 	// src:'IMG_7076.JPG',
   // src: 'chiya.gif',
   // src: 'panda.gif',
+	downloadFileName:'[lab.magiconch.com][电子包浆].jpg',
 	output:null,
 	img:null,
 	direction:'vertical',
@@ -211,11 +212,11 @@ const data = {
 	width:400,
 	userNamesText,
 	superMode:false,
-  convoluteNames,
-  isGIF: false,
-  isLoadingGIF: false,
-  isPackingGIF: false,
-  lastConfig: {}
+	convoluteNames,
+	isGIF: false,
+	isLoadingGIF: false,
+	isPackingGIF: false,
+	lastConfig: {}
 };
 
 
@@ -258,9 +259,7 @@ const app = new Vue({
 			this.config = _config
 		},
 		save(e){
-			const a = e.target;
-			a.href = this.output;
-			a.download = `[lab.magiconch.com][电子包浆]-${+Date.now()}.jpg`;
+			this.downloadFileName = `[lab.magiconch.com][电子包浆]-${+Date.now()}.jpg`;
 			// a.click();
 		}
 	},
