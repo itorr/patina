@@ -195,8 +195,11 @@ _鹤_屋_
 let config = deepCopy(defaultConfig);
 config.userNames = userNamesText.trim().split('\n')
 
+const defaultImageURL = 'totoro-avatar.jpg';
+
 const data = {
-	src:'totoro-avatar.jpg',
+	src:defaultImageURL,
+	defaultImageURL,
 	// src:'hibike-capture.png',
 	// src:'IMG_7076.JPG',
   // src: 'chiya.gif',
