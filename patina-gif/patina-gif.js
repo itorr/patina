@@ -303,8 +303,8 @@
         const cutLeft = 0
         const cutTop = 0
 
-        const calcWidth = naturalWidth
-        const calcHeight = naturalHeight
+        const calcWidth = imgEl.width
+        const calcHeight = imgEl.height
 
         let setLeft = 0
         let setTop = 0
